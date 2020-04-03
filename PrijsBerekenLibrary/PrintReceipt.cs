@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 
 namespace PrijsBerekenLibrary
@@ -13,7 +16,7 @@ namespace PrijsBerekenLibrary
         }
         public void printReceipt()
         {
-            / create a document object
+            //create a document object
             var doc = new Document();
             //get the current directory
             string path = Environment.CurrentDirectory;
