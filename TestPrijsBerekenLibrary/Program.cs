@@ -9,10 +9,17 @@ namespace TestPrijsBerekenLibrary
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
+            List<Product> products = new List<Product>();
+
+            products.Add(new Product("Melk", 2.0));
+            products.Add(new Product("Cola", 6.0));
+            products.Add(new Product("Nootjes", 8.5));
+
             PrintReceipt print = new PrintReceipt();
-            print.printReceipt();
+            print.printReceipt(products);
             
         }
     }

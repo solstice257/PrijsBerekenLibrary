@@ -4,6 +4,7 @@ using System.Text;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using it = iTextSharp.text;
 
 
 namespace PrijsBerekenLibrary
@@ -14,7 +15,7 @@ namespace PrijsBerekenLibrary
         {
 
         }
-        public void printReceipt()
+        public void printReceipt(List<Product> products)
         {
             //create a document object
             var doc = new Document();
@@ -24,8 +25,11 @@ namespace PrijsBerekenLibrary
             PdfWriter.GetInstance(doc, new FileStream(path + "/pdfdoc.pdf", FileMode.Create));
             //open the document for writing
             doc.Open();
-            //write a paragraph to the document
-            doc.Add(new Paragraph("Hello World"));
+            //write the products to the document
+            foreach (Product product in products)
+            {
+                doc.Add(new Paragraph(product.name + ": €" + product.price));
+            }
             //close the document
             doc.Close();
             //view the result pdf file

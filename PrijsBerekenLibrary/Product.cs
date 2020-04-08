@@ -9,7 +9,7 @@ namespace PrijsBerekenLibrary
         public string name { get; private set; }
         public double price { get; private set; }
 
-        public Product(string name, float price, int BTW)
+        public Product(string name, double price)
         {
             this.name = name;
             this.price = price;
