@@ -23,8 +23,8 @@ namespace PrijsBerekenLibrary
         {
             foreach (Product product in products)
             {
-                subTotalPrice = Math.Round(subTotalPrice + product.price, 2);
-                totalPrice = Math.Round(totalPrice + (product.price * 1.21), 2);
+                subTotalPrice = Math.Round(subTotalPrice + product.amount * product.price, 2);
+                totalPrice = Math.Round(totalPrice + product.amount * (product.price * 1.21), 2);
             }
             totalBTW = totalPrice - subTotalPrice;
         }

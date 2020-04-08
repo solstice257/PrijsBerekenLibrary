@@ -20,7 +20,7 @@ namespace PrijsBerekenLibrary
             this.calculatePrice = calculatedPrices;
             //create a document object
             var doc = new Document();
-            doc.SetMargins(20f,20f,100f,20f);
+            doc.SetMargins(100f,20f,100f,20f);
             //get the current directory
             string path = Environment.CurrentDirectory;
             //get PdfWriter object
@@ -45,29 +45,27 @@ namespace PrijsBerekenLibrary
                 productTable.AddCell("€" + Convert.ToString(product.price * product.amount));
                 productTable.AddCell("21%");
             }
+
+            productTable.HorizontalAlignment = Element.ALIGN_LEFT;
             doc.Add(productTable);
  
             PdfPTable priceTable = new PdfPTable(3);
 
-            doc.Add(new Paragraph("\n"));
-            //Add the total prices
+            priceTable.WidthPercentage = 50f;
+            priceTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
+            doc.Add(new Paragraph("\n"));
+
+            //Add the total prices
             priceTable.AddCell("Subtotaal");
             priceTable.AddCell("BTW");
             priceTable.AddCell("Totaal");
 
-            priceTable.AddCell(Convert.ToString(calculatedPrices.subTotalPrice));
-            priceTable.AddCell(Convert.ToString(calculatedPrices.totalBTW));
-            priceTable.AddCell(Convert.ToString(calculatedPrices.totalPrice));
+            priceTable.AddCell("€" + Convert.ToString(calculatedPrices.subTotalPrice));
+            priceTable.AddCell("€" + Convert.ToString(calculatedPrices.totalBTW));
+            priceTable.AddCell("€" + Convert.ToString(calculatedPrices.totalPrice));
 
             doc.Add(priceTable);
-
-
-            //Paragraph totalPricesList = new Paragraph();
-            //totalPricesList.Alignment = 0;
-            //totalPricesList.Add("\n\nSubtotaal: " + calculatedPrices.subTotalPrice + "\nBTW: " + calculatedPrices.totalBTW + "\nTotaal: " + calculatedPrices.totalPrice);
-            //doc.Add(totalPricesList);
-
 
             //close the document
             doc.Close();
