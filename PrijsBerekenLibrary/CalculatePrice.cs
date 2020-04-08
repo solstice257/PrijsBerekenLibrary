@@ -10,9 +10,10 @@ namespace PrijsBerekenLibrary
 
     public class CalculatePrice
     {
-        double totalPrice;
-        double subTotalPrice;
-        double totalBTW;
+        public double totalPrice { get; private set; }
+        public double subTotalPrice { get; private set; }
+        public double totalBTW { get; private set; }
+
         public CalculatePrice()
         {
 
@@ -22,8 +23,8 @@ namespace PrijsBerekenLibrary
         {
             foreach (Product product in products)
             {
-                subTotalPrice = subTotalPrice + product.price;
-                totalPrice = totalPrice + (product.price * 1.21);
+                subTotalPrice = Math.Round(subTotalPrice + product.price, 2);
+                totalPrice = Math.Round(totalPrice + (product.price * 1.21), 2);
             }
             totalBTW = totalPrice - subTotalPrice;
         }
