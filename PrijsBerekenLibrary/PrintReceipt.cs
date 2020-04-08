@@ -27,21 +27,47 @@ namespace PrijsBerekenLibrary
             PdfWriter.GetInstance(doc, new FileStream(path + "/receipt.pdf", FileMode.Create));
             //open the document for writing
             doc.Open();
+            PdfPTable productTable = new PdfPTable(5);
+
+            productTable.AddCell("Product");
+            productTable.AddCell("Prijs");
+            productTable.AddCell("Aantal");
+            productTable.AddCell("Totaal");
+            productTable.AddCell("Btw %");
+
             //write the products to the document
-            Paragraph productList = new Paragraph();
-            productList.Alignment = 1;
 
             foreach (Product product in products)
             {
-                productList.Add("(Aantal: " + product.amount + ") " + product.name + ": €" + product.price + "\n");
+                productTable.AddCell(product.name);
+                productTable.AddCell("€" + Convert.ToString(product.price));
+                productTable.AddCell(Convert.ToString(product.amount));
+                productTable.AddCell("€" + Convert.ToString(product.price * product.amount));
+                productTable.AddCell("21%");
             }
-            doc.Add(productList);
+            doc.Add(productTable);
+ 
+            PdfPTable priceTable = new PdfPTable(3);
 
+            doc.Add(new Paragraph("\n"));
             //Add the total prices
-            Paragraph totalPricesList = new Paragraph();
-            totalPricesList.Alignment = 1;
-            totalPricesList.Add("\n\nSubtotaal: " + calculatedPrices.subTotalPrice + "\nBTW: " + calculatedPrices.totalBTW + "\nTotaal: " + calculatedPrices.totalPrice);
-            doc.Add(totalPricesList);
+
+            priceTable.AddCell("Subtotaal");
+            priceTable.AddCell("BTW");
+            priceTable.AddCell("Totaal");
+
+            priceTable.AddCell(Convert.ToString(calculatedPrices.subTotalPrice));
+            priceTable.AddCell(Convert.ToString(calculatedPrices.totalBTW));
+            priceTable.AddCell(Convert.ToString(calculatedPrices.totalPrice));
+
+            doc.Add(priceTable);
+
+
+            //Paragraph totalPricesList = new Paragraph();
+            //totalPricesList.Alignment = 0;
+            //totalPricesList.Add("\n\nSubtotaal: " + calculatedPrices.subTotalPrice + "\nBTW: " + calculatedPrices.totalBTW + "\nTotaal: " + calculatedPrices.totalPrice);
+            //doc.Add(totalPricesList);
+
 
             //close the document
             doc.Close();
